@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vi</title>
+    
+</head>
+<style>
+ /* === STYLE ===  */
+body {
+	background: rgb(10,0,0);
+}
+svg {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}
+
+</style>
+<body>
+<!-- === BODY === -->
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <filter id="turb" x="-100%" y="-100%" width="300%" height="300%">
+        <feTurbulence type="turbulence" baseFrequency="0.06" numOctaves="2.5" result="turbulence" seed="69" />
+        <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="35" />
+    </filter>
+    <filter id="turb2" x="-100%" y="-100%" width="300%" height="300%">
+        <feTurbulence type="turbulence" baseFrequency="0.06" numOctaves="2.5" result="turbulence" seed="169" />
+        <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="35" />
+    </filter>
+    <filter id="turb3" x="-100%" y="-100%" width="300%" height="300%">
+        <feTurbulence type="turbulence" baseFrequency="0.06" numOctaves="2.5" result="turbulence" seed="269" />
+        <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="35" />
+    </filter>
+    <radialGradient id="grad" cx="50%" cy="80%">
+        <stop offset="30%" stop-color="gold" />
+        <stop offset="100%" stop-color="red" />
+    </radialGradient>
+    <g id="g" opacity="0.9">
+        <ellipse cx="110" cy="100" rx="20" ry="40" filter="url(#turb2)" fill="url(#grad)">
+            <animate attributeName="cy" values="100; 7100" dur="100s" begin="0s" repeatCount="indefinite" />
+        </ellipse>
+        <ellipse cx="90" cy="100" rx="20" ry="40" filter="url(#turb)" fill="url(#grad)">
+            <animate attributeName="cy" values="100; 7100" dur="100s" begin="0s" repeatCount="indefinite" />
+        </ellipse>
+        <ellipse cx="100" cy="100" rx="30" ry="50" filter="url(#turb3)" fill="url(#grad)">
+            <animate attributeName="cy" values="100; 7100" dur="100s" begin="0s" repeatCount="indefinite" />
+        </ellipse>
+        <!-- 		<text fill="#fff" x="80" y="100" filter="url(#turb2)">
+			FIRE!
+			<animate attributeName="y" values="100; 7100" dur="100s" begin="0s" repeatCount="indefinite" />
+		</text> -->
+        <animateTransform attributeName="transform" attributeType="XML" type="translate" values="0 0; 0 -7000"
+            dur="100s" begin="0s" repeatCount="indefinite" />
+    </g>
+</svg>
+  
+<script>
+    //  === BODY === 
+
+</script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="ST/style.css"> -->
+</head>
+<style>
+    body{
+  background-color: #290000;
+}
+canvas {
+    width: 100%;
+    height: 100%;
+  
+}
+
+
+</style>
+<body>
+<canvas id="canvas"></canvas>
+
+<script>
+     // script.js
+        window.onload = function () {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+
+            // Function to set the canvas size to fill the window
+            function setCanvasSize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            setCanvasSize();
+
+            let particlesArray = [];
+            const particleSize = 1;
+            const particleSpacing = 1.4;
+            const mouseRadius = 70;
+            const mouse = {
+                x: null,
+                y: null,
+                radius: mouseRadius
+            };
+
+            // Update mouse coordinates on mouse movement
+            window.addEventListener('mousemove', function (event) {
+                mouse.x = event.x;
+                mouse.y = event.y;
+            });
+
+            // Particle class to manage properties and behavior of each particle
+            class Particle {
+                constructor(x, y) {
+                    this.x = x;
+                    this.y = y;
+                    this.size = particleSize;
+                    this.color = '#EB0029';
+                    this.baseX = x;
+                    this.baseY = y;
+                    this.density = (Math.random() * 30) + 1;
+                    this.opacity = 0;
+                }
+                draw() {
+                    ctx.fillStyle = this.color;
+                    ctx.globalAlpha = this.opacity;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.globalAlpha = 1;
+                    if (this.opacity < 1) {
+                        this.opacity += 0.05; // Increment opacity for fade-in effect
+                    }
+                }
+                update() {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < mouse.radius) {
+                        let forceDirectionX = dx / distance;
+                        let forceDirectionY = dy / distance;
+                        let maxDistance = mouse.radius;
+                        let force = (maxDistance - distance) / maxDistance;
+                        let directionX = forceDirectionX * force * this.density;
+                        let directionY = forceDirectionY * force * this.density;
+                        this.x -= directionX;
+                        this.y -= directionY;
+                    } else {
+                        this.x -= (this.x - this.baseX) / 10;
+                        this.y -= (this.y - this.baseY) / 10;
+                    }
+                }
+            }
+
+            // Load and parse SVG file to extract path data
+            async function loadSVG(url) {
+                const response = await fetch(url);
+                const text = await response.text();
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(text, "image/svg+xml");
+                const paths = xmlDoc.getElementsByTagName("path");
+                return Array.from(paths).map(path => path.getAttribute("d"));
+            }
+
+            // Calculate positions from SVG path and center them
+            function getParticlePositionsFromPathData(pathData) {
+                const positions = [];
+                const path = new Path2D(pathData);
+                let minX = Infinity, maxX = 0, minY = Infinity, maxY = 0;
+                for (let y = 0; y < canvas.height; y += particleSpacing) {
+                    for (let x = 0; x < canvas.width; x += particleSpacing) {
+                        if (ctx.isPointInPath(path, x, y)) {
+                            positions.push({ x, y });
+                            if (x < minX) minX = x;
+                            if (x > maxX) maxX = x;
+                            if (y < minY) minY = y;
+                            if (y > maxY) maxY = y;
+                        }
+                    }
+                }
+                return { positions, minX, maxX, minY, maxY };
+            }
+
+            // Initialize particles and center the logo based on path dimensions
+            async function init() {
+                particlesArray = [];
+                const svgPaths = await loadSVG('https://raw.githubusercontent.com/tbeitbc/RAVEL/e8c2c1cc62c44658508c6a288a6ce3346284680c/public/assets/img/lg.svg');
+                
+                // const svgPaths = await loadSVG('https://upload.wikimedia.org/wikipedia/fr/5/5b/Riot_Games_2022.svg');
+                const pathData = getParticlePositionsFromPathData(svgPaths[0]);
+                const offsetX = (canvas.width - (pathData.maxX - pathData.minX)) / 2 - pathData.minX;
+                const offsetY = (canvas.height - (pathData.maxY - pathData.minY)) / 2 - pathData.minY;
+                pathData.positions.forEach(pos => {
+                    particlesArray.push(new Particle(pos.x + offsetX, pos.y + offsetY));
+                });
+            }
+
+            // Animation loop to clear canvas and redraw/update each particle
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particlesArray.forEach(particle => {
+                    particle.draw();
+                    particle.update();
+                });
+                requestAnimationFrame(animate);
+            }
+
+            init(); // Initialize particle system
+            animate(); // Start animation loop
+
+            // Reinitialize everything on window resize
+            window.addEventListener('resize', function () {
+                setCanvasSize();
+                init();
+            });
+        };
+
+</script>
+    <!-- <script src="ST/app.js"></script> -->
+</body>
+</html>

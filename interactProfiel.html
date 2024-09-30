@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="ST/style.css"> -->
+    <!-- A modern, interactive, and customizable portfolio website built with HTML, CSS, and JavaScript, featuring a dynamic design with animations, hover effects, and a unique cursor effect. -->
+</head>
+<style>
+    * {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+/*   scroll-snap-type: y mandatory; */
+}
+
+body {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  color: hsl(0 0% 98%);
+  timeline-scope: --home-vt, --blog-vt, --photos-vt, --newsletter-vt;
+  font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
+  background: hsl(0 0% 0%);
+  overflow-x: hidden;
+}
+
+section {
+  min-height: 100vh;
+  width: 100vw;
+  display: grid;
+  place-items: center;
+/*   scroll-snap-align: center; */
+}
+
+nav {
+  position: fixed;
+  bottom: 2rem;
+  z-index: 10;
+}
+
+nav ul {
+  display: flex;
+  list-style-type: none;
+  gap: 0rem;
+  padding: 0;
+  margin: 0;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  border-radius: 5rem;
+  z-index: -1;
+  background: hsl(0 0% 15% / 0.75);
+  backdrop-filter: blur(10px);
+  border-radius: 5rem;
+  box-shadow: 0 1px 1px 1px hsl(0 0% 100% / 0.15) inset;
+}
+
+header {
+	position: fixed;
+	top: 1rem;
+	left: 50%;
+	translate: -50%;
+	width: 80ch;
+	max-width: calc(100% - 2rem);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.bear {
+	height: 36px;
+  border-radius: 50%;
+}
+
+#newsletter {
+	position: relative;
+}
+
+.newsletter-bear {
+	height: 100vh;
+	position: absolute;
+	right: 0;
+	translate: 50% 0;
+	opacity: 0.25;
+	pointer-events: none;
+	z-index: -1;
+}
+
+[href] {
+  font-weight: bold;
+  color: hsl(0 0% 100%);
+  text-decoration-line: none;
+  padding: 0.75rem 1.25rem;
+  display: inline-block;
+  animation: change linear both;
+  opacity: calc(0.5 + var(--active, 0));
+  transition: opacity 0.2s, background 0.2s;
+  border-radius: 5rem;
+}
+
+.follow {
+	padding: 0.5rem 1rem;
+	background: hsl(210 80% 60%);
+	border-radius: 5rem;
+	color: white;
+	font-weight: 400;
+	text-decoration-line: none;
+	opacity: 1;
+}
+
+[href]:is(:hover, :focus-visible) {
+  --hover: 1;
+  background: hsl(0 0% 40%);
+}
+
+[href] span {
+  display: inline-block;
+  transition: scale 0.2s;
+  scale: calc(1 + (var(--hover, 0) * 0.1));
+}
+
+[href="#home"] {
+  anchor-name: --home;
+  animation-timeline: --home-vt;
+}
+[href="#blog"] {
+  anchor-name: --blog;
+  animation-timeline: --blog-vt;
+}
+[href="#photos"] {
+  anchor-name: --photos;
+  animation-timeline: --photos-vt;
+}
+[href="#newsletter"] {
+  anchor-name: --newsletter;
+  animation-timeline: --newsletter-vt;
+}
+
+@keyframes change {
+  50% {
+    --active: 1
+  }
+}
+
+#home {
+	height: 200vh;
+  view-timeline-name: --home-vt;
+}
+#blog {
+  view-timeline-name: --blog-vt;
+}
+#photos {
+  view-timeline-name: --photos-vt;
+}
+#newsletter {
+  view-timeline-name: --newsletter-vt;
+}
+
+.indicator {
+  position: absolute;
+  top: anchor(--home top);
+  bottom: anchor(--home bottom);
+  border-radius: 5rem;
+  left: calc(
+    anchor(--home left) +
+    /* The distance between home left and blog left * active state */
+    (
+      (anchor(--blog left) - anchor(--home left)) * var(--blog-show, 0)
+    ) + 
+    /* The distance between blog left and work left as we already have blog left */
+    (
+      (anchor(--photos left) - anchor(--blog left)) * var(--photos-show, 0)
+    ) +
+    /* And so on */
+    (
+      (anchor(--newsletter left) - anchor(--photos left)) * var(--newsletter-show, 0)
+    )
+   );
+  right: calc(
+    anchor(--home right) -
+    /* The distance between home left and blog left * active state */
+    (
+      (anchor(--home right) - anchor(--blog right)) * var(--blog-show, 0)
+    ) -
+    /* The distance between blog left and work left as we already have blog left */
+    (
+      (anchor(--blog right) - anchor(--photos right)) * var(--photos-show, 0)
+    ) -
+    /* And so on */
+    (
+      (anchor(--photos right) - anchor(--newsletter right)) * var(--newsletter-show, 0)
+    )
+  );
+/*   width: 40px; */
+  background: hsl(0 0% 50% / 0.65);
+  backdrop-filter: blur(10px);
+/*   mix-blend-mode: difference; */
+  transition: all 0.2s linear;
+  z-index: -1;
+}
+
+.indicator-bar {  
+  animation: indicate-blog, indicate-photos, indicate-newsletter;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  animation-timeline: --blog-vt, --photos-vt, --newsletter-vt;
+  animation-range: entry;
+}
+
+@keyframes indicate-blog {
+  to {
+    --blog-show: 1;
+  }
+}
+
+@keyframes indicate-photos {
+  to {
+    --photos-show: 1;
+  }
+}
+@keyframes indicate-newsletter {
+  to {
+    --newsletter-show: 1;
+  }
+}
+
+
+h1 {
+	display: grid;
+}
+
+:is(h1, h2) {
+	font-size: clamp(2.5rem, 7vw + 1rem, 10rem);
+	text-align: center;
+	line-height: 1;
+	margin: 0;
+	width: 100%;
+}
+
+h1 {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	translate: -50% -50%;
+}
+
+h1 span:first-of-type {
+	display: inline-block;
+  color: hsl(0, 0%, 100%);
+	font-size: 0.35em;
+}
+
+h1 span:last-of-type {
+	display: inline-block;
+}
+
+h1 span:first-of-type {
+	display: inline-block;
+	animation: fade-away both linear;
+	animation-timeline: --home-vt;
+	animation-range: entry-crossing 50% exit 50%;
+}
+
+h1 span:last-of-type {
+	display: inline-block;
+	animation: scale-up both cubic-bezier(.1,.7,.9,1.3), fade-away both linear;
+	animation-timeline: --home-vt;
+	animation-range: entry-crossing 60% exit 70%, exit 10% exit 50%;	
+}
+
+@keyframes scale-up {
+	to {
+		scale: 1.5;
+	}
+}
+
+@keyframes grow {
+	0% {
+		scale: 0.5;
+		opacity: 0;
+	}
+}
+
+
+@keyframes fade-away {
+	100% {
+		opacity: 0;
+	}
+}
+
+.photo-grid {
+  display: grid;
+  grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
+  width: 100vw;
+  gap: 4px;
+}
+
+/* .photo-grid > div {
+
+} */
+
+.photo-grid img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+#photos {
+	display: block;
+}
+
+form {
+	padding: 1rem;
+	text-align: center;
+}
+
+form p:first-of-type {
+	font-size: clamp(1rem, 1vw + 1rem, 4rem);
+}
+form p:last-of-type {
+	font-size: 0.875rem;
+	font-weight: 300;
+}
+
+form div {
+	display: flex;
+}
+
+#blog {
+	align-content: center;
+}
+
+form input {
+	flex: 1;
+	padding: 1rem;
+	border-radius: 5rem 0 0 5rem;
+	border: 0;
+}
+
+form button {
+	border: 0;
+	border-radius: 0 5rem 5rem 0;
+	padding: 1rem;
+	background: hsl(210 80% 60%);
+	color: white;
+}
+canvas {
+    width: 100%;
+    height: 100%;
+   
+  
+}
+</style>
+<body>
+<header>
+    <img class="bear" src="img/lg.jpg" alt="" />
+    <!-- === LOGO === -->
+    <!-- <canvas id="canvas"></canvas> -->
+    <a class="follow" href="mail.tbeitbc.tech" target="_blank">Follow</a>
+</header>
+
+<!-- === LOGO === -->
+<canvas id="canvas"></canvas>
+
+<!-- === LOGO === -->
+<script>
+
+  // script.js
+  window.onload = function () {
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particlesArray = [];
+    const numberOfParticles = 1000; // Total number of particles
+    const particleSize = 1; // Size of each particle
+    const particleSpacing = 1.4; // Spacing between particles for higher density
+    const mouseRadius = 70; // Radius of mouse interaction
+    const mouse = {
+      x: null,
+      y: null,
+      radius: mouseRadius
+    };
+
+    window.addEventListener('mousemove', function (event) {
+      mouse.x = event.x;
+      mouse.y = event.y;
+    });
+
+    class Particle {
+      constructor(x, y) {
+        this.x = Math.random() * canvas.width; // Random initial x position
+        this.y = Math.random() * canvas.height; // Random initial y position
+        this.size = particleSize;
+        this.color = '#EB0029';
+        this.baseX = x;
+        this.baseY = y;
+        this.density = (Math.random() * 30) + 1;
+      }
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.fill();
+      }
+      update() {
+        let dx = mouse.x - this.x;
+        let dy = mouse.y - this.y;
+        let distance = Math.sqrt(dx * dx + dy * dy);
+        let forceDirectionX = dx / distance;
+        let forceDirectionY = dy / distance;
+        let maxDistance = mouse.radius;
+        let force = (maxDistance - distance) / maxDistance;
+        let directionX = (forceDirectionX * force * this.density);
+        let directionY = (forceDirectionY * force * this.density);
+
+        if (distance < mouse.radius) {
+          this.x -= directionX;
+          this.y -= directionY;
+        } else {
+          if (this.x !== this.baseX) {
+            let dx = this.x - this.baseX;
+            this.x -= dx / 10;
+          }
+          if (this.y !== this.baseY) {
+            let dy = this.y - this.baseY;
+            this.y -= dy / 10;
+          }
+        }
+      }
+    }
+
+    async function loadSVG(url) {
+      const response = await fetch(url);
+      const text = await response.text();
+      const parser = new DOMParser();
+      const xmlDoc = parser.parseFromString(text, "image/svg+xml");
+      const paths = xmlDoc.getElementsByTagName("path");
+      return Array.from(paths).map(path => path.getAttribute("d"));
+    }
+
+    function getParticlePositionsFromPathData(pathData) {
+      const positions = [];
+      const path = new Path2D(pathData);
+      const canvasWidth = canvas.width;
+      const canvasHeight = canvas.height;
+      let minX = canvasWidth, maxX = 0, minY = canvasHeight, maxY = 0
+      for (let y = 0; y < canvasHeight; y += particleSpacing) { // Adjust spacing for higher density
+        for (let x = 0; x < canvasWidth; x += particleSpacing) { // Adjust spacing for higher density
+          if (ctx.isPointInPath(path, x, y)) {
+            positions.push({ x, y });
+            if (x < minX) minX = x;
+            if (x > maxX) maxX = x;
+            if (y < minY) minY = y;
+            if (y > maxY) maxY = y;
+          }
+        }
+      }
+
+      return { positions, minX, maxX, minY, maxY };
+    }
+
+    async function init() {
+      particlesArray = [];
+      const svgPaths = await loadSVG('/img/lg.svg');
+
+      let allPositions = [];
+      let minX = canvas.width, maxX = 0, minY = canvas.height, maxY = 0;
+
+
+      svgPaths.forEach(pathData => {
+        const { positions, minX: pathMinX, maxX: pathMaxX, minY: pathMinY, maxY: pathMaxY } = getParticlePositionsFromPathData(pathData);
+        allPositions = allPositions.concat(positions);
+        if (pathMinX < minX) minX = pathMinX;
+        if (pathMaxX > maxX) maxX = pathMaxX;
+        if (pathMinY < minY) minY = pathMinY;
+        if (pathMaxY > maxY) maxY = pathMaxY;
+      });
+
+
+      const offsetX = (canvas.width - (maxX - minX)) / 2 - minX;
+      const offsetY = (canvas.height - (maxY - minY)) / 2 - minY;
+
+      // Adjust positions to center the SVG
+      allPositions = allPositions.map(pos => ({ x: pos.x + offsetX, y: pos.y + offsetY }));
+
+      allPositions.forEach(pos => {
+        particlesArray.push(new Particle(pos.x, pos.y));
+      });
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particlesArray.length; i++) {
+        particlesArray[i].draw();
+        particlesArray[i].update();
+      }
+      requestAnimationFrame(animate);
+    }
+
+    init();
+    animate();
+    window.addEventListener('resize', function () {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      init();
+    });
+  };
+  //The code does not belong to me.//
+</script>
+<nav>
+    <ul>
+        <li>
+            <a href="#home"><span>Home</span></a>
+        </li>
+        <li>
+            <a href="#blog"><span>Blog</span></a>
+        </li>
+        <li>
+            <a href="#photos"><span>Photos</span></a>
+        </li>
+        <li>
+            <a href="#newsletter"><span>Newsletter</span></a>
+        </li>
+    </ul>
+    <div class="backdrop"></div>
+    <div class="indicator-bar">
+        <div class="indicator"></div>
+    </div>
+</nav>
+
+<section id="home">
+  
+    <h1>
+      <span>SRIE VI</span>
+    </h1>
+    <span>The new URL for this website is srievi.tech.</span>
+</section>
+<section id="blog">
+    <h2>Blog Latest</h2>
+    <ul>
+        <li>
+            <a href="#">Like Counter with Vercel KV and RSC</a>
+        </li>
+        <li>
+            <a href="#">CSS Only Nav Indicator with Scroll Animation</a>
+        </li>
+        <li>
+            <a href="#">It's 2023 and you can't style Select</a>
+        </li>
+    </ul>
+</section>
+<section id="photos">
+    <div class="photo-grid">
+        <div>
+            <img src="img/lg.svg" alt="" />
+        </div>
+        <div>
+            <img src="img/lg.png" alt="" />
+        </div>
+        <div>
+            <img src="img/lg.png" alt="" />
+        </div>
+        <div>
+            <img src="img/lg.svg" alt="" />
+        </div>
+        <div>
+            <img  src="img/lg.jpg"  alt=""  style="border-radius: 50px;"/>
+        </div>
+        <div>
+            <img src="img/lg.png" alt="" />
+        </div>
+        <div>
+            <img src="img/lg.png" alt="" />
+        </div>
+        <div>
+            <img src="img/lg.png" alt="" />
+        </div>
+        <div>
+            <img src="img/lg.png" alt="" />
+        </div>
+    </div>
+</section>
+<section id="newsletter">
+    <img class="newsletter-bear" src="img/lg.svg" alt="" />
+    <form action="https://app.convertkit.com/forms/4960615/subscriptions" method="post">
+        <p>Keep up to date with my latest projects and adventures!</p>
+        <div>
+            <input name="email_address" aria-label="Email Address" placeholder="Email Address" type="email" required />
+            <button>
+                Subscribe!
+            </button>
+        </div>
+        <p>
+            No spam. Unsubscribe any time.
+        </p>
+    </form>
+</section>
+
+</body>
+</html>

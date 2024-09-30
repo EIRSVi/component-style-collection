@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="ST/style.css"> -->
+</head>
+<style>
+    figure {
+  padding: 2rem;
+  margin: 0;
+  position: relative;
+  color: #C4CBB7;
+}
+figure:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(currentColor 0 0) 0 -6px no-repeat;
+  clip-path: polygon(0 0,calc(100% - 80px) 0,100% 80px,100% 100%,0 100%,0 0,5px  5px ,5px calc(100% - 5px),calc(100% - 5px) calc(100% - 5px),calc(100% - 5px) calc(80px + 2.07px),calc(100% - 80px - 2.07px) 5px,5px 5px);
+}
+figure img {
+  width: 250px;
+  filter: grayscale(0.2);
+  -webkit-mask: linear-gradient(-135deg,#0000 50px,#000 0);
+}
+figure figcaption {
+  position: absolute;
+  display: flex;
+  gap: 1rem;
+  inset: auto 0 0;
+  translate: 0 calc(50% - 5px);
+  font-family: sans-serif;
+  font-size: 2.3rem;
+  font-weight: bold;
+}
+figure figcaption:before,
+figure figcaption:after {
+  content:"";
+  height: 5px;
+  background: currentColor;
+  width: 2rem;
+  align-self: center;
+}
+figure figcaption:after {
+  flex: 1; 
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  grid-auto-flow: column;
+  place-content: center;
+  gap: 50px;
+  background: repeating-linear-gradient(135deg,#607848 0 20px,#687c40 0 40px);
+}
+</style>
+<body>
+<figure>
+    <img src="https://picsum.photos/id/433/400/400" alt="A bear">
+    <figcaption>The Bear</figcaption>
+</figure>
+<figure>
+    <img src="https://picsum.photos/id/582/400/400" alt="A wolf">
+    <figcaption>The Wolf</figcaption>
+</figure>
+
+<script>
+    
+</script>
+    <!-- <script src="ST/app.js"></script> -->
+</body>
+</html>

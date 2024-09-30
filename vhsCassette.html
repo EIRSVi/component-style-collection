@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vi</title>
+    
+</head>
+<style>
+ /* === STYLE ===  */
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --first-stop: 20cqw;
+  --second-stop: 40cqw;
+  --third-stop: 60cqw;
+  --fourth-stop: 80cqw;
+  --fifth-stop: 100cqw;
+  --sixth-stop: 150cqw;
+  --red: hsl(350, 100%, 50%);
+  --orange: hsl(13, 100%, 50%);
+  --gray: hsl(17, 19%, 73%);
+  --white: hsl(0, 0%, 100%);
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  background: hsl(0, 0%, 81%);
+}
+
+.cassette {
+  display: flex;
+  flex-direction: column;
+  resize: both;
+  background: white;
+  container-type: inline-size;
+  height: calc(100dvh - 40px);
+  border: 2px solid white;
+  margin: 0 auto;
+  aspect-ratio: 70/99;
+}
+
+header {
+  padding: 3cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.jvc {
+  width: 80%;
+}
+
+h2 {
+  font-size: 10cqw;
+  display: block;
+  text-transform: uppercase;
+  font-family: Futura, sans-serif;
+  font-weight: 200;
+  letter-spacing: -1px;
+  margin: 0;
+}
+
+h3 {
+  color: var(--red);
+  font-size: 24cqw;
+  font-stretch: 50%;
+  width: max-content;
+  text-wrap: nowrap;
+  margin: 0;
+  line-height: 0.7;
+  padding-bottom: 1cqw;
+}
+
+.body-wrapper {
+  display: flex;
+  height: 100%;
+  gap: 10px;
+  justify-content: flex-end;
+  align-items: flex-end;
+  background-image:
+    repeating-linear-gradient(
+      135deg,
+      var(--white),
+      var(--white) var(--first-stop),
+      var(--red) var(--first-stop),
+      var(--red) var(--second-stop),
+      var(--orange) var(--second-stop),
+      var(--orange) var(--third-stop),
+      var(--gray) var(--third-stop),
+      var(--gray) var(--fourth-stop),
+      var(--white) var(--fourth-stop),
+      var(--white) var(--fifth-stop),
+      var(--white) var(--sixth-stop)
+    );
+}
+
+.vhs {
+  width: 20cqw;
+  margin-right: auto;
+  padding-left: 1cqw;
+  padding-bottom: 1cqw;
+}
+
+ol {
+  background: white;
+  margin: 0;
+  list-style: none;
+  font-weight: 800;
+  padding-left: 18cqw;
+  padding-bottom: 1cqw;
+}
+
+ol li {
+  position: relative;
+  font-size: 3cqw;
+}
+
+ol li:before {
+  content: "";
+  height: 0.5cqw;
+  background: black;
+  width: 15cqw;
+  position: absolute;
+  left: -16cqw;
+  top: 1.5cqw;
+  z-index: 1;
+}
+
+ol li:after {
+  content: "•";
+  font-size: 7cqw;
+  color: red;
+  left: -19cqw;
+  position: absolute;
+  border: 2cqw solid white;
+  z-index: 2;
+  top: -0.5cqw;
+  line-height: 0;
+}
+
+ol li:nth-child(2):after {
+  content: "••";
+}
+
+ol li:nth-child(3):after {
+  content: "•••";
+}
+
+</style>
+<body>
+<!-- === BODY === -->
+<div class="cassette">
+    <header>
+        <svg aria-labelledby="welcome-title" class="jvc" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 249 99" version="1.1">
+            <title id="welcome-title">JVC Video Cassette</title>
+            <g id="surface13">
+                <path
+                    d="M 112.03125 97.964844 L 138.898438 97.964844 L 169.914062 1.007812 L 145.558594 1.007812 L 125.46875 64.109375 L 105.371094 1.007812 L 81.042969 1.007812 Z M 112.03125 97.964844 " />
+                <path
+                    d="M 248.660156 76.714844 L 248.660156 60.359375 L 225.6875 60.359375 L 225.6875 76.714844 L 197.230469 76.714844 L 197.230469 22.296875 L 225.6875 22.296875 L 225.6875 38.625 L 248.660156 38.625 L 248.660156 18.074219 L 248.640625 18.074219 C 248.640625 15.941406 248.492188 13.882812 248.191406 11.847656 C 247.375 6.046875 242.65625 1.539062 236.882812 0.691406 C 235.003906 0.429688 233.125 0.308594 231.1875 0.308594 L 191.71875 0.308594 C 189.78125 0.308594 187.886719 0.429688 186.03125 0.691406 C 180.25 1.539062 175.527344 6.046875 174.699219 11.847656 C 174.414062 13.882812 174.253906 15.941406 174.253906 18.074219 L 174.253906 80.929688 C 174.253906 83.046875 174.414062 85.109375 174.699219 87.140625 C 175.527344 92.960938 180.25 97.421875 186.03125 98.289062 C 187.886719 98.550781 189.78125 98.671875 191.71875 98.671875 L 231.1875 98.671875 C 233.125 98.671875 235.003906 98.550781 236.882812 98.289062 C 242.65625 97.421875 247.375 92.960938 248.191406 87.140625 C 248.492188 85.109375 248.640625 83.046875 248.640625 80.929688 L 248.660156 80.917969 Z M 248.660156 76.714844 " />
+                <path
+                    d="M 0.214844 76.714844 L 0.214844 58.25 L 23.171875 58.25 L 23.171875 76.714844 L 51.65625 76.714844 L 51.65625 1.011719 L 74.617188 1.011719 L 74.617188 80.929688 C 74.617188 83.046875 74.445312 85.109375 74.164062 87.140625 C 73.332031 92.960938 68.605469 97.421875 62.832031 98.289062 C 60.996094 98.550781 59.082031 98.671875 57.136719 98.671875 L 17.671875 98.671875 C 15.734375 98.671875 13.84375 98.550781 11.988281 98.289062 C 6.234375 97.421875 1.5 92.960938 0.664062 87.140625 C 0.363281 85.109375 0.230469 83.046875 0.230469 80.929688 L 0.214844 80.917969 Z M 0.214844 76.714844 " />
+            </g>
+        </svg>
+        <h2><span>Video Cassette</span></h2>
+    </header>
+
+    <div class="body-wrapper">
+        <svg class="vhs" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 458.62 229.45">
+            <path d="m4.0733 225.38h450.47v-221.3h-450.47z" fill="none" stroke="#000" stroke-width="8.1467" />
+            <path
+                d="m122.82 47.875c1.9272-9.427-0.364-21.25-0.937-24.427l26.042 0.107-36.875 157.24c-2.7604 7.2917 0.156 15.26 2.8125 25.677h-43.698l-46.875-183.07 43.437 0.05 32.604 126.67 23.489-102.24" />
+            <path
+                d="m284.54 206.47v-182.86l-39.792-0.156v113.91c-0.107 2.448-0.05 2.3959-2.6562 2.3959l-36.927 0.05c-2.5-0.05-2.6563-0.156-2.7084-2.448v-113.91h-42.292v122.34l-8.1251 10.99h8.1251v49.688h42.292v-47.5c0.107-1.9792 0.469-2.1876 2.7084-2.1355 0 0 8.75-0.05 14.375-0.05 2.9688 0.05 7.1355-0.833 9.5834-1.7708 3.6978-1.4063 9.8958-4.1667 13.021-5.625 1.1453-0.521 2.6042-0.469 2.6042 1.3014v55.781h39.792" />
+            <path
+                d="m303.97 190.17c19.167 0 48.177-0.156 60.886-0.156 12.187 0 28.021-5.3126 28.021-25.469 0-11.562-9.1667-20.833-24.167-25.365l-31.979-9.7396c-22.083-6.6666-38.385-22.292-38.385-49.167 0-39.063 38.646-56.51 69.948-56.458 16.719 0.05 42.708-0.05 64.583 0l-6.823 15.938h-46.354c-21.458 0-40.469 8.4896-40.156 30.417 0.208 14.063 6.4584 21.771 26.406 26.979l25.156 7.0312c24.167 6.4584 39.687 24.427 39.687 48.542 0 38.854-36.458 53.542-62.031 53.542h-58.75l-6.0417-16.094" />
+        </svg>
+        <h3>T-120</h3>
+        <ol>
+            <li>120min</li>
+            <li>240min</li>
+            <li>360min</li>
+        </ol>
+    </div>
+</div>
+  
+<script>
+    //  === BODY === 
+
+</script>
+</body>
+</html>

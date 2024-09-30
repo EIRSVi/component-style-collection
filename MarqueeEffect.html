@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarqueeEffect</title>
+    <!-- <link rel="stylesheet" href="ST/style.css"> -->
+    <!-- A simple and customizable marquee effect built with HTML, CSS, and JavaScript, featuring a smooth scrolling animation with hover pause functionality. -->
+</head>
+<style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background: var(--clr_dark);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 13px;
+  overflow-x: hidden;
+  list-style: none;
+}
+
+:root {
+  --clr_dark: #0c0e02;
+  --clr_light: #c6ff25;
+}
+
+header {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.marquee {
+  overflow: hidden;
+  display: flex;
+  background-color: var(--clr_light);
+  color: var(--clr_dark);
+ 
+}
+
+.marquee h1 {
+  font-size: 6rem;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+</style>
+<body>
+<body>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk&display=swap" rel="stylesheet">
+
+    <header>
+        <div class="marquee">
+            <h1> This is a simple marquee &nbsp</h1>
+        </div>
+    </header>
+</body>
+
+<script>
+    
+        // script.js
+        function Marquee(selector, speed) {
+            const parentSelector = document.querySelector(selector);
+            const clone = parentSelector.innerHTML;
+            const firstElement = parentSelector.children[0];
+            let i = 0;
+            let marqueeInterval;
+
+            parentSelector.insertAdjacentHTML('beforeend', clone);
+            parentSelector.insertAdjacentHTML('beforeend', clone);
+
+            function startMarquee() {
+                marqueeInterval = setInterval(function () {
+                    firstElement.style.marginLeft = `-${i}px`;
+                    if (i > firstElement.clientWidth) {
+                        i = 0;
+                    }
+                    i = i + speed;
+                }, 0);
+            }
+
+            function stopMarquee() {
+                clearInterval(marqueeInterval);
+            }
+
+            parentSelector.addEventListener('mouseenter', stopMarquee);
+            parentSelector.addEventListener('mouseleave', startMarquee);
+
+            startMarquee();
+        }
+
+        window.addEventListener('load', () => Marquee('.marquee', 0.4));
+
+</script>
+    <!-- <script src="ST/app.js"></script> -->
+</body>
+</html>

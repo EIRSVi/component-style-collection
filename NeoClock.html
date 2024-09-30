@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeonClock</title>
+    <link rel="stylesheet" href="ST/style.css">
+</head>
+<style>
+    html,body {background-color:#000}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+#clock {
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:100vmin;
+  text-align:center;
+    background-image: url(https://www.m24.ru/special/test/cube/clock/background-01.jpg);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size:auto 300%;
+  background-position:center 0px;
+  animation: 24s BgPos linear infinite alternate;
+  white-space:nowrap
+}
+@keyframes BgPos {
+  0% {background-position:center 0px;}
+  100%{background-position:center 100%;}
+}
+#clock i {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
+  color:#fff;
+font-size:calc(16px + 11vmin);
+
+}
+.hrs,.mins,.secs {display:inline-block;width:1.7em}
+@media screen and (min-width: 900px) {
+  #clock i {
+  font-size:calc(16px + 12vw);  
+  }
+  #clock  {width:100%}
+}
+.hrs,.mins,.secs {width:1.4em;
+
+}
+.dots {
+  display:inline-block;
+  width:.3em;
+  text-align:center;
+
+}
+</style>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+<div id="clock">
+    <i class="hrs">HH</i>
+    <i class="dots">:</i>
+    <i class="mins">MM</i>
+    <i class="dots">:</i>
+    <i class="secs">SS</i>
+</div>
+<script>
+    function updateClock() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, "0");
+            const minutes = now.getMinutes().toString().padStart(2, "0");
+            const seconds = now.getSeconds().toString().padStart(2, "0");
+            document.querySelector(".hrs").textContent = hours;
+            document.querySelector(".mins").textContent = minutes;
+            document.querySelector(".secs").textContent = seconds;
+        }
+        // Initial call to set the clock
+        updateClock();
+        // Update the clock every second
+        setInterval(updateClock, 1000);
+
+</script>
+    <!-- <script src="ST/app.js"></script> -->
+</body>
+</html>

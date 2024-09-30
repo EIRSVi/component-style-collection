@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vi</title>
+    <!-- IMAGE  -->
+     <!--  
+    profile
+    https://avatars.githubusercontent.com/u/70220432?s=400&u=a81c7f75776b4ca5a65fdebf73248ffc1c285bdb&v=4
+
+    logo png 
+    https://raw.githubusercontent.com/tbeitbc/RAVEL/docs/public/assets/img/lg.png
+   
+    logo svg
+    https://raw.githubusercontent.com/tbeitbc/RAVEL/e8c2c1cc62c44658508c6a288a6ce3346284680c/public/assets/img/lg.svg
+
+-->
+</head>
+<style>
+ /* === STYLE ===  */
+.loader {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.loader .pattern-1 {
+  position: absolute;
+  background-color: #ff4c5a;
+  width: 200px;
+  height: 200px;
+  clip-path: polygon(0 10%, 70% 90%, 40% 90%, 0 45%);
+}
+
+.loader .pattern-2 {
+  position: absolute;
+  background-color: #ff4c5a;
+  width: 220px;
+  height: 190px;
+  clip-path: polygon(100% 10%, 100% 45%, 83% 65%, 55% 65%);
+}
+
+.loader .pattern-1 .pattern-1-shade {
+  position: absolute;
+  transform: translateX(-20px);
+  opacity: 0.7;
+  z-index: 10;
+  background-color: white;
+  width: 20px;
+  height: 200px;
+  animation: shiny 1s infinite;
+}
+
+@keyframes shiny {
+  0% {
+    transform: translateX(-20px);
+  }
+  100% {
+    transform: translateX(140px);
+  }
+}
+
+
+
+
+
+</style>
+<body>
+<!-- === BODY === -->
+
+<div class="loader">
+    <div class="pattern-1">
+        <div class="pattern-1-shade"></div>
+    </div>
+    <div class="pattern-2"></div>
+</div>
+
+
+
+
+
+  
+<script>
+//   === SCRIPT ===  
+
+
+
+
+
+
+</script>
+</body>
+</html>

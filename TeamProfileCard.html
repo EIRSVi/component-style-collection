@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeamProfileCards</title>
+    <!-- A modern, responsive, and interactive team profile card design built with HTML, CSS, and SCSS, featuring a clean and minimalist layout with hover effects and social media links. -->
+
+</head>
+<style>
+ /* === STYLE ===  */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&display=swap");
+@mixin mQ($rem) {
+  @media screen and (min-width: $rem) {
+    @content;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #e8eaef;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  object-position: top;
+}
+
+section {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  padding-block: min(20vh, 5rem);
+  text-align: center;
+  width: calc(min(90rem, 90%));
+  margin-inline: auto;
+
+  p,
+  h2,
+  h3 {
+    letter-spacing: 0.035rem;
+  }
+
+  p {
+    line-height: 1.7;
+    color: #454545;
+    max-width: 70rem;
+    margin: 0 auto;
+    font-size: clamp(0.9rem, 0.825rem + 0.3vw, 1.2rem);
+  }
+
+  h2 {
+    font-size: clamp(3rem, 2.4286rem + 2.2857vw, 5rem);
+    color: #111;
+    text-transform: capitalize;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .cards {
+    margin-top: 4rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+    gap: 2rem;
+
+    @include mQ(51rem) {
+      gap: 3.5rem;
+    }
+
+    .card {
+      position: relative;
+      text-align: left;
+
+      .social-icon {
+        background: #111;
+        padding: 1rem 1.75rem;
+        display: inline-block;
+        position: absolute;
+        left: 0;
+
+        i {
+          color: #fff;
+          font-size: 1.4rem;
+        }
+
+        &:hover i {
+          color: #003ef5;
+        }
+      }
+
+      img {
+        filter: grayscale(100%);
+        transition: 0.5s ease;
+
+        &:hover {
+          filter: grayscale(0%);
+        }
+      }
+
+      .card-content-wrapper {
+        margin-left: auto;
+        max-width: 90%;
+
+        .card-content {
+          display: block;
+          background: white;
+          transition: 0.5s ease;
+          padding: 4.5rem 2rem 0 3.2rem;
+
+          > div {
+            text-align: right;
+          }
+
+          h3,
+          p {
+            text-transform: capitalize;
+          }
+
+          h3 {
+            font-size: clamp(1.15rem, 1.1071rem + 0.1714vw, 1.3rem);
+            font-weight: 800;
+            color: #111;
+          }
+          p {
+            color: #454545;
+            font-size: 0.9rem;
+          }
+
+          svg {
+            display: inline-block;
+            text-align: right;
+            width: 60px;
+            color: #003ef5;
+          }
+        }
+      }
+
+      /*hover states*/
+      .card-img-wrapper:hover ~ .card-content-wrapper .card-content {
+        background: #003ef5;
+
+        h3,
+        p,
+        svg {
+          color: #fff;
+        }
+      }
+
+      .card-content-wrapper:hover .card-content {
+        background: #003ef5;
+
+        h3,
+        p,
+        svg {
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+</style>
+<body>
+<!-- === BODY === -->
+
+<section>
+    <h2>our team</h2>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Animi, praesentium veritatis voluptatibus ut
+        consequuntur quas consequatur omnis id rem obcaecati.</p>
+    <div class="cards">
+        <div class="card">
+            <div class="card-img-wrapper">
+                <img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                    alt="Joss Anderson">
+            </div>
+            <a href="#" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+            <div class="card-content-wrapper">
+                <a href="#" class="card-content">
+                    <h3>joss anderson</h3>
+                    <p>art director</p>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                        </svg>
+                    </div>
+
+                </a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="James Newton">
+            </div>
+            <a href="#" class="social-icon"><i class="fa-brands fa-x-twitter"></i></a>
+            <div class="card-content-wrapper">
+                <a href="#" class="card-content">
+                    <h3>james newton</h3>
+                    <p>UX Designer</p>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                        </svg>
+                    </div>
+
+                </a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-img-wrapper">
+                <img src="https://images.pexels.com/photos/775358/pexels-photo-775358.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                    alt="Oliver Jones">
+            </div>
+            <a href="#" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
+            <div class="card-content-wrapper">
+                <a href="#" class="card-content">
+                    <h3>oliver jones</h3>
+                    <p>web designer</p>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                        </svg>
+                    </div>
+
+                </a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-img-wrapper">
+                <img src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                    alt="Noah Wilson">
+            </div>
+            <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+            <div class="card-content-wrapper">
+                <a href="#" class="card-content">
+                    <h3>noah wilson</h3>
+                    <p>seo expert</p>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                        </svg>
+                    </div>
+
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+  
+<script>
+//   === SCRIPT ===  
+
+
+
+
+
+
+</script>
+</body>
+</html>

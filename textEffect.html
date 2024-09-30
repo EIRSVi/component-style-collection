@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vi</title>
+    
+</head>
+<style>
+ /* === STYLE ===  */
+body, html{
+  background: #f0ede4;
+  background-image: url("https://images.unsplash.com/photo-1616410731309-4e07df6b5d42?q=80&w=1919&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-size: 100%;
+  background-repeat: repeat;
+/*   filter: sepia(40%) contrast(100%); */
+  filter: brightness(110%);
+}
+.bg{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-image: url("https://images.unsplash.com/photo-1604147706283-d7119b5b822c?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-size: 100%;
+  background-repeat: repeat;
+  filter: invert(1);
+  mix-blend-mode: screen;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.text {
+  color: #222;
+  letter-spacing: -0.05em;
+  font-weight: 700;
+  font-size: 16px;
+  font-family: Inter;
+  font-style: italic;
+  text-align: center;
+}
+.goo {
+  color: #121212;
+  letter-spacing: -0.05em;
+  font-weight: 700;
+  font-size: 180px;
+  font-family: Playfair Display;
+  font-style: italic;
+  filter: url(#goof);
+  text-align: center;
+  z-index: 2;
+}
+
+</style>
+<body>
+<!-- === BODY === -->
+<!-- <div class="bg2"></div> -->
+<div class="bg"></div>
+
+
+<div class="text">Use your mouse-wheel to increase and decrease the standard deviation of the filter.</div>
+<div class="goo">This is not ink.</div>
+<svg style={{visibility: "hidden" , position: "absolute" }} width="0" height="0" xmlns="http://www.w3.org/2000/svg"
+    version="1.1">
+    <defs>
+        <filter id="goof">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -5"
+                result="goof2" />
+            <feComposite in="SourceGraphic" in2="goof2" operator="atop" />
+            <feTurbulence type="fractalNoise" baseFrequency="0.1" numOctaves="2" result="turbulence" />
+            <feDisplacementMap in2="turbulence" in="goof2" scale="5" xChannelSelector="R" yChannelSelector="B" />
+
+
+
+        </filter>
+    </defs>
+</svg>
+  
+<script>
+    //  === BODY === 
+
+    filterId = document.querySelector('svg filter').id;
+    feGauss = document.querySelector(`#${filterId}>feGaussianBlur`);
+    feDisp = document.querySelector(`#${filterId}>feDisplacementMap`);
+
+    function zoom(event) {
+        event.preventDefault();
+
+        scale += event.deltaY * -0.005;
+        scale2 += event.deltaY * -1;
+
+
+
+
+        // Restrict scale
+        scale = Math.min(Math.max(0.05, scale), 50);
+
+
+
+        // Apply scale transform
+        feGauss.setAttribute('stdDeviation', scale)
+        //feDisp.setAttribute('scale', scale2)
+
+
+    }
+
+    let scale = 0;
+    let scale2 = 0;
+
+
+    const el = document.querySelector(".goo");
+
+
+    el.onwheel = zoom;
+</script>
+</body>
+</html>

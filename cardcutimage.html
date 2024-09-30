@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CutCornerImage</title>
+    <!-- A creative and visually appealing image styling technique built with HTML and CSS, featuring a cut corner effect with a customizable border and caption. -->
+</head>
+<style>
+ /* === STYLE ===  */
+
+@layer picture-border{
+  picture {
+    display: grid;
+    width: 400px;
+    aspect-ratio: 4/3;
+    --bc: red; /*border-color*/
+    --bs: 10px; /*border-size*/
+    --cs: 20px; /*cut-size*/
+    grid-template-rows: var(--cs) auto 1fr;
+  }
+  picture > figcaption {
+    grid-area: 1/1/2/2;
+    justify-self: end;
+    min-width: 50%;
+    min-height: calc(var(--cs) * 2 + var(--bs));
+
+    display: grid;
+    place-items: center;
+    text-align: center;
+    background-color: var(--bc);
+
+    clip-path: polygon(
+      var(--cs) 0,
+      100% 0,
+      100% 100%,
+      0 100%,
+      0 var(--cs)
+    );
+  }
+  picture > img{
+    grid-area: 2/1/4/2;
+    width: 100%;
+    height: 100%; 
+    object-fit: cover;
+    --em: .5;
+    clip-path: polygon(
+      calc(var(--cs) + var(--bs) * var(--em)) var(--bs), 
+      calc(100% - var(--bs)) var(--bs),
+      calc(100% - var(--bs)) calc(100% - var(--cs) - var(--bs)),
+      calc(50% + var(--cs) - var(--bs) * var(--em)) calc(100% - var(--cs) - var(--bs)),
+      calc(50% - var(--bs) * var(--em)) calc(100% - var(--bs)),
+      var(--bs) calc(100% - var(--bs)),
+      var(--bs) calc(var(--cs) + var(--bs) * var(--em))
+      );    
+  }
+  picture::before{ /*border*/
+    content: "";
+    grid-area: 2/1/4/2;
+    background-color: var(--bc);
+    clip-path: polygon(
+      var(--cs) 0, 
+      100% 0,
+      100% calc(100% - var(--cs)),
+      calc(50% + var(--cs)) calc(100% - var(--cs)),
+      50% 100%,
+      0% 100%,
+      0 var(--cs)
+    );
+  }
+}
+
+@layer demo {
+  html, body { height: 100% }
+  body { margin: 0; display: grid; place-items: center; background-color: black}
+}
+
+
+
+
+</style>
+<body>
+<!-- === BODY === -->
+
+<picture>
+    <img src="https://cdn.shopify.com/s/files/1/0012/4957/4961/files/redragon_m808_gaming_mouse_7_ab0a92f4-816e-44c8-b421-b0d27df0768e.jpg?v=1605171295"
+        alt="">
+    <figcaption>Mouse</figcaption>
+</picture>
+
+
+
+
+  
+<script>
+//   === SCRIPT ===  
+
+
+
+
+
+
+</script>
+</body>
+</html>

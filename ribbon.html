@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ribbon</title>
+    <!-- <link rel="stylesheet" href="ST/style.css"> -->
+    A creative and visually appealing text styling technique built with HTML and CSS, featuring an infinite ribbon effect with customizable colors and shapes.
+</head>
+<style>
+    .ribbon {
+  --r: .5em;  /* control the cutout of the ribbon */
+  --c: #d81a14;
+  
+  padding-inline: calc(.5em + var(--r));
+  text-align: center;
+  line-height: 2;
+  color: #fff;
+  background-image: 
+    linear-gradient(var(--c) 70%,#0000 0), 
+    linear-gradient(to bottom left,#0000 50%, color-mix(in srgb,var(--c),#000 40%) 51% 84%,#0000 85%);
+  background-position: 0 .15lh;
+  background-size: 100% 1lh;
+  clip-path: polygon(0 .15lh,100% .15lh,calc(100% - var(--r)) .5lh,100% .85lh,100% calc(100% - .15lh),0 calc(100% - .15lh),var(--r) calc(100% - .5lh),0 calc(100% - .85lh));
+  /* width: fit-content; you may need this in your real use case */
+}
+
+/* if you update the line-height, you need to also update the below */
+@supports not (height:1lh) {
+  .ribbon {
+    background-position: 0 .3em;
+    background-size: 100% 2em;    
+    clip-path: polygon(0 .3em,100% .3em,calc(100% - var(--r)) 1em,100% 1.7em,100% calc(100% - .3em),0 calc(100% - .3em),var(--r) calc(100% - 1em),0 calc(100% - 1.7em))
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
+  place-items: center;
+  gap: 20px;
+  background: #f2f2f2;
+  line-height: 2;
+}
+
+/* due to precise values you have to choose good font-size values to avoid rounding issues and visual glitches */
+h1,h2,h3 {
+  font-family: sans-serif;
+  text-transform: uppercase;
+  font-size: 3rem;
+  margin: 0;
+}
+h2 {
+  font-size: 2.5rem;
+}
+h3 {
+  font-size: 1.5rem;
+}
+</style>
+<body>
+<h1 class="ribbon">A Title</h1>
+<h2 class="ribbon" style="--c: #8A9B0F">Another title <br> on two lines</h2>
+<h3 class="ribbon" style="--c: #45ADA8">You can have<br> as many lines<br> as you want</h3>
+
+<script>
+    
+</script>
+    <!-- <script src="ST/app.js"></script> -->
+</body>
+</html>
